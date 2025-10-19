@@ -1,0 +1,41 @@
+{
+  "name": "idea-ai-chat",
+  "version": "1.0.0",
+  "description": "Advanced AI chat interface with Persian support - Completely client-side",
+  "type": "module",
+  "scripts": {
+    "dev": "python3 -m http.server 8000",
+    "serve": "python3 -m http.server 8000",
+    "deploy": "git add . && git commit -m 'Deploy' && git push origin main",
+    "lint": "htmlhint index.html",
+    "setup": "mkdir -p assets/screenshots scripts docs"
+  },
+  "keywords": [
+    "ai",
+    "chat",
+    "persian",
+    "farsi",
+    "rtl",
+    "frontend",
+    "client-side",
+    "responsive",
+    "deepseek",
+    "gpt",
+    "claude"
+  ],
+  "author": {
+    "name": "Your Name",
+    "email": "your.email@example.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/idea-ai-chat  "
+  },
+  "devDependencies": {
+    "htmlhint": "^1.1.4"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

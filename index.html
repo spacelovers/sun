@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Idea AI - چت هوش مصنوعی</title>
+    <style>
+        :root {
+            --primary-color: #007bff;
+            --bg-primary: #1e1e1e;
+            --bg-secondary: #2d2d2d;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --border-color: #444444;
+        }
+        [data-theme="light"] {
+            --primary-color: #007bff;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f0f0f0;
+            --text-primary: #000000;
+            --text-secondary: #555555;
+            --border-color: #dddddd;
+        }
+        [data-theme="colorful-blue"] {
+            --primary-color: #007bff;
+        }
+        [data-theme="colorful-green"] {
+            --primary-color: #28a745;
+        }
+        [data-theme="colorful-purple"] {
+            --primary-color: #6f42c1;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .side-panel {
+            width: 280px;
+            background-color: var(--bg-secondary);
+            border-left: 1px solid var(--border-color);
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+        }
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .chat-area {
+            flex-grow: 1;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+        .input-area {
+            padding: 1rem;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+        }
+        .input-area input {
+            flex-grow: 1;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+        .input-area button {
+            margin-right: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            background-color: var(--primary-color);
+            color: white;
+            cursor: pointer;
+        }
+        @media (max-width: 768px) {
+            .side-panel {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body data-theme="dark">
+
+    <div class="side-panel">
+        <h2>تاریخچه چت</h2>
+        <!-- Chat history items here -->
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <h1>چت با هوش مصنوعی</h1>
+            <div class="settings">
+                <select id="theme-selector">
+                    <option value="dark">تیره</option>
+                    <option value="light">روشن</option>
+                    <option value="colorful-blue">آبی</option>
+                    <option value="colorful-green">سبز</option>
+                    <option value="colorful-purple">بنفش</option>
+                </select>
+            </div>
+        </div>
+        <div class="chat-area" id="chat-area">
+            <!-- Chat messages will appear here -->
+        </div>
+        <div class="input-area">
+            <input type="text" id="message-input" placeholder="پیام خود را تایپ کنید...">
+            <button id="send-button">ارسال</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeSelector = document.getElementById('theme-selector');
+            const sendButton = document.getElementById('send-button');
+            const messageInput = document.getElementById('message-input');
+            const chatArea = document.getElementById('chat-area');
+
+            // Load saved theme
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.body.setAttribute('data-theme', savedTheme);
+            themeSelector.value = savedTheme;
+
+            // Theme switcher
+            themeSelector.addEventListener('change', (e) => {
+                const selectedTheme = e.target.value;
+                document.body.setAttribute('data-theme', selectedTheme);
+                localStorage.setItem('theme', selectedTheme);
+            });
+
+            // Send message
+            const sendMessage = () => {
+                const messageText = messageInput.value.trim();
+                if (messageText) {
+                    const messageElement = document.createElement('div');
+                    messageElement.textContent = messageText;
+                    chatArea.appendChild(messageElement);
+                    messageInput.value = '';
+                    chatArea.scrollTop = chatArea.scrollHeight;
+                }
+            };
+
+            sendButton.addEventListener('click', sendMessage);
+            messageInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
